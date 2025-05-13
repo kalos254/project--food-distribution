@@ -1,28 +1,34 @@
-# Food Distribution System
+# Food Distribution System - Kenya
 
-A comprehensive web-based platform for managing food distribution between producers, consumers, and relief agencies in Kenya.
+A comprehensive platform connecting food producers, consumers, and relief agencies in Kenya.
 
-## Features
+## Portals
 
-- Government Dashboard for oversight and policy management
-- Relief Agency Portal for distribution management
-- Producer/Consumer Marketplace
-- Analytics and Reporting
-- Real-time Coverage Maps
+- **Government Dashboard**: Policy management and oversight
+- **Relief Agency Portal**: Distribution management and tracking
+- **Producer/Consumer Portal**: Marketplace and inventory management
+- **Analyst Portal**: Data analysis and reporting
 
-## Technologies Used
+## Tech Stack
 
-- HTML5, CSS3, JavaScript
-- Chart.js for analytics
-- Boxicons for icons
-- Responsive design for all devices
+- Frontend: HTML5, CSS3, JavaScript
+- Visualization: Chart.js
+- UI Components: Boxicons
+- Maps: Leaflet.js
 
-## Setup
+## Live Demo
+
+Visit [Food Distribution System](https://kalos254.github.io/project--food-distribution)
+
+## Installation
 
 1. Clone the repository
-2. Open index.html in your browser
-3. Navigate through different portals using the main menu
+```bash
+git clone https://github.com/kalos254/project--food-distribution.git
+```
 
-## Contributing
+2. Open any portal's index.html in your browser
 
-Pull requests are welcome. For major changes, please open an issue first.
+## Screenshots
+
+- Coming soon

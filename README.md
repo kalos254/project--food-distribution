@@ -29,6 +29,18 @@ git clone https://github.com/kalos254/project--food-distribution.git
 
 2. Open any portal's index.html in your browser
 
+## Structure
+
+```
+project--food-distribution/
+├── index.html              # Main entry point
+├── home dashboard/         # Main homepage
+├── government page/        # Government portal 
+├── relief agencies/        # Relief agency portal
+├── producerandconsumer/   # Producer/Consumer portal
+└── analyst page/          # Analysis portal
+```
+
 ## Screenshots
 
 - Coming soon

@@ -1,9 +1,11 @@
 # Dependencies
 node_modules/
 .vscode/
+package-lock.json
 
 # Database
 *.sql
+query
 
 # Environment
 .env
@@ -11,3 +13,7 @@ node_modules/
 
 # Backend (temporary)
 backend/
+
+# System files
+.DS_Store
+Thumbs.db

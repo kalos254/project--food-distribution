@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+.vscode/
+
+# Database
+*.sql
+
+# Environment
+.env
+.env.local
+
+# Backend (temporary)
+backend/

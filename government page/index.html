@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Dashboard - Food Distribution</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                  <i class='bx bx-menu toggle-btn'></i>
+                <h2>Government Portal</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-label="Dashboard Overview">
+                    <a href="#overview">
+                        <i class='bx bx-grid-alt'></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li data-label="Manage Approvals">
+                    <a href="#approvals">
+                        <i class='bx bx-check-circle'></i>
+                        <span>Approvals</span>
+                    </a>
+                </li>
+                <li data-label="Monitor Distribution">
+                    <a href="#monitoring">
+                        <i class='bx bx-show'></i>
+                        <span>Monitoring</span>
+                    </a>
+                </li>
+                <li data-label="Manage Policies">
+                    <a href="#policies">
+                        <i class='bx bx-book-alt'></i>
+                        <span>Policies</span>
+                    </a>
+                </li>
+                <li data-label="View Reports">
+                    <a href="#reports">
+                        <i class='bx bx-file'></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                 <li id="nav-coverage" data-label="View Coverage Map">
+                    <a href="#coverage-map">
+                        <i class='bx bx-map-alt'></i>
+                        <span>Coverage Map</span>
+                    </a>
+                </li>
+                <li data-label="Logout from Dashboard">
+                    <a href="../index.html">
+                        <i class='bx bx-log-out'></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+               
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Dashboard</h1>
+                    <p>Welcome, <span id="official-name">Official</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-filter">
+                        <select id="timeRange">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="generateReport" title="Generate Distribution Report">
+                        <i class='bx bx-download'></i> Generate Report
+                    </button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-time'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending Approvals</h3>
+                            <p class="stat-value">24</p>
+                            <p class="stat-change warning">Requires Action</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-check-double'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Approved Requests</h3>
+                            <p class="stat-value">156</p>
+                            <p class="stat-change positive">+12.3%</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-building'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Agencies</h3>
+                            <p class="stat-value">47</p>
+                            <p class="stat-change positive">+5.2%</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-trending-up'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Compliance Rate</h3>
+                            <p class="stat-value">98.5%</p>
+                            <p class="stat-change positive">+2.1%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Distribution by Region</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="regionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Monthly Approvals</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="approvalsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Approvals Section -->
+            <section id="approvals" class="dashboard-section hidden">
+                <div class="section-header">
+                    <h2><i class='bx bx-check-circle'></i> Approvals</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" title="Filter Approvals">
+                            <i class='bx bx-filter'></i> Filter
+                        </button>
+                        <button class="btn btn-secondary" title="Sort Approvals">
+                            <i class='bx bx-sort'></i> Sort
+                        </button>
+                    </div>
+                </div>
+                <div class="approvals-list">
+                    <!-- Approval cards will be populated here -->
+                </div>
+            </section>
+
+            <!-- Monitoring Section -->
+            <section id="monitoring" class="dashboard-section hidden">
+                <div class="section-header">
+                    <h2><i class='bx bx-show'></i> Monitoring</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" title="Create New Inspection">
+                            <i class='bx bx-plus'></i> New Inspection
+                        </button>
+                    </div>
+                </div>
+                <div class="monitoring-content">
+                    <div class="monitoring-subsection">
+                        <h3>Active Distributions</h3>
+                        <div class="distributions-list">
+                            <!-- Distribution cards will be populated here -->
+                        </div>
+                    </div>
+                    <div class="monitoring-subsection">
+                        <h3>Quality Checks</h3>
+                        <div class="quality-checks-list">
+                            <!-- Quality check cards will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Policies Section -->
+            <section id="policies" class="dashboard-section hidden">
+                <div class="section-header">
+                    <h2><i class='bx bx-book'></i> Policies</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" title="Create New Policy">
+                            <i class='bx bx-plus'></i> New Policy
+                        </button>
+                        <button class="btn btn-secondary" title="Import Policy">
+                            <i class='bx bx-upload'></i> Import
+                        </button>
+                    </div>
+                </div>
+                <div class="policies-list">
+                    <!-- Policy cards will be populated here -->
+                </div>
+            </section>
+
+            <!-- Coverage Map Section -->
+            <section id="coverage-map" class="dashboard-section hidden">
+                <div class="section-header">
+                    <h2><i class='bx bx-map'></i> Coverage Map</h2>
+                    <div class="section-actions">
+                        <div class="filter-controls">
+                            <div class="filter-group">
+                                <select id="coverageProductFilter">
+                                    <option value="">All Products</option>
+                                    <option value="maize">Maize</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="beans">Beans</option>
+                                    <option value="sorghum">Sorghum</option>
+                                    <option value="millet">Millet</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="coverageTimeRange">
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month" selected>This Month</option>
+                                    <option value="year">This Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="coverage-content">
+                    <div class="coverage-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class='bx bx-map-pin'></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Coverage</h3>
+                                <p class="stat-value">28 Counties</p>
+                                <p class="stat-change positive">+2 from last month</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class='bx bx-group'></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Population Reached</h3>
+                                <p class="stat-value">2.5M People</p>
+                                <p class="stat-change positive">+8% from last month</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class='bx bx-package'></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Distribution Volume</h3>
+                                <p class="stat-value">125,000 kg</p>
+                                <p class="stat-change positive">+15% from last month</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="coverageMapContainer" class="map-container hidden">
+                        <div id="coverageMap"></div>
+                        <div class="map-legend">
+                            <h3>Distribution Intensity</h3>
+                            <div class="legend-scale">
+                                <div class="legend-item">
+                                    <span class="color" style="background: #7fdbda"></span>
+                                    <span class="label">Low</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="color" style="background: #2ecc71"></span>
+                                    <span class="label">Medium</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="color" style="background: #27ae60"></span>
+                                    <span class="label">High</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="color" style="background: #1a6d41"></span>
+                                    <span class="label">Very High</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="toggleMap" class="btn-primary" title="Toggle Coverage Map">
+                            <i class='bx bx-map'></i> Show Coverage Map
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections remain unchanged -->
+            <div class="dashboard-grid">
+                <!-- Map Section -->
+                <section class="map-section">
+                    <div class="section-header">
+                        <h2>Distribution Heat Map</h2>
+                        <div class="map-controls">
+                            <button id="toggleHeatmap" class="btn-icon" title="Toggle Heat Map">
+                                <i class='bx bx-layer'></i>
+                            </button>
+                            <button id="zoomIn" class="btn-icon" title="Zoom In Map">
+                                <i class='bx bx-plus'></i>
+                            </button>
+                            <button id="zoomOut" class="btn-icon" title="Zoom Out Map">
+                                <i class='bx bx-minus'></i>
+                            </button>
+                            <button id="resetView" class="btn-icon" title="Reset Map View">
+                                <i class='bx bx-reset'></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="kenya-map"></div>
+                    <div class="map-legend">
+                        <div class="legend-title">Distribution Intensity</div>
+                        <div class="legend-scale">
+                            <div class="legend-item">
+                                <div class="color-box high"></div>
+                                <span>High</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="color-box medium"></div>
+                                <span>Medium</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="color-box low"></div>
+                                <span>Low</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <!-- Region Distribution Chart -->
+                    <div class="chart-card">
+                        <h3>Distribution by Region</h3>
+                        <div class="chart-container">
+                            <canvas id="regionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Product Distribution Chart -->
+                    <div class="chart-card">
+                        <h3>Product Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="productChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Distribution Trend Chart -->
+                    <div class="chart-card">
+                        <h3>Distribution Trend</h3>
+                        <div class="chart-container">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Coverage Analysis Chart -->
+                    <div class="chart-card">
+                        <h3>Coverage Analysis</h3>
+                        <div class="chart-container">
+                            <canvas id="coverageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add map dependencies only when needed -->
+    <script>
+        document.getElementById('nav-coverage').addEventListener('click', function() {
+            // Load map dependencies dynamically
+            if (!window.L) {
+                loadMapDependencies();
+            }
+            // Show coverage section
+            showSection('coverage-map');
+        });
+
+        function loadMapDependencies() {
+            // Load Leaflet CSS
+            const leafletCSS = document.createElement('link');
+            leafletCSS.rel = 'stylesheet';
+            leafletCSS.href = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
+            document.head.appendChild(leafletCSS);
+
+            // Load Leaflet JS
+            const leafletJS = document.createElement('script');
+            leafletJS.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
+            document.head.appendChild(leafletJS);
+
+            // Load Heat plugin after Leaflet
+            leafletJS.onload = function() {
+                const heatJS = document.createElement('script');
+                heatJS.src = 'https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js';
+                document.head.appendChild(heatJS);
+
+                // Initialize map after dependencies are loaded
+                heatJS.onload = initializeMap;
+            };
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

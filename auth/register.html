@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="web3-support" content="false">
+    <title>Register - Food Distribution Platform</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Register</h2>
+            <div id="messageContainer"></div>
+            <form id="registerForm" novalidate>
+                <div class="form-group">
+                    <label for="fullName">
+                        <i class='bx bxs-user'></i>
+                        <span>Full Name</span>
+                    </label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">
+                        <i class='bx bxs-envelope'></i>
+                        <span>Email</span>
+                    </label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group password-field">
+                    <label for="password">
+                        <i class='bx bxs-lock-alt'></i>
+                        <span>Password</span>
+                    </label>
+                    <div class="password-input-group">
+                        <input type="password" id="password" name="password" required>
+                        <i class='bx bxs-show toggle-password'></i>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text"></span>
+                    </div>
+                </div>
+                <div class="form-group password-field">
+                    <label for="confirmPassword">
+                        <i class='bx bxs-lock-alt'></i>
+                        <span>Confirm Password</span>
+                    </label>
+                    <div class="password-input-group">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <i class='bx bxs-show toggle-password'></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                        <option value="">Select a role</option>
+                        <option value="producer">Producer/Consumer</option>
+                        <option value="government">Government</option>
+                        <option value="relief">Relief Agency</option>
+                        <option value="analyst">Analyst</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <select id="region" name="region" required>
+                        <option value="">Select a region</option>
+                        <option value="Nairobi">Nairobi</option>
+                        <option value="Central">Central</option>
+                        <option value="Coast">Coast</option>
+                        <option value="Eastern">Eastern</option>
+                        <option value="North Eastern">North Eastern</option>
+                        <option value="Nyanza">Nyanza</option>
+                        <option value="Rift Valley">Rift Valley</option>
+                        <option value="Western">Western</option>
+                    </select>
+                </div>
+                <div class="form-group" id="govEmployeeNumberGroup" style="display: none;">
+                    <label for="govEmployeeNumber">Government Employee Number</label>
+                    <input type="text" id="govEmployeeNumber" name="govEmployeeNumber">
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p class="auth-link">Already have an account? <a href="login.html">Login here</a></p>
+        </div>
+    </div>
+    <script>
+        window.web3Enabled = false;
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Food Distribution Platform</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Login</h2>
+            <div id="messageContainer"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">
+                        <i class='bx bxs-envelope'></i>
+                        <span>Email</span>
+                    </label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group password-field">
+                    <label for="password">
+                        <i class='bx bxs-lock-alt'></i>
+                        <span>Password</span>
+                    </label>
+                    <div class="password-input-group">
+                        <input type="password" id="password" name="password" required>
+                        <i class='bx bxs-show toggle-password'></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="role">
+                        <i class='bx bxs-user-badge'></i>
+                        <span>Role</span>
+                    </label>
+                    <select id="role" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="producer">Producer/Consumer</option>
+                        <option value="government">Government</option>
+                        <option value="relief">Relief Agency</option>
+                        <option value="analyst">Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class='bx bx-log-in'></i>
+                    <span>Login</span>
+                </button>
+            </form>
+            <p class="auth-link">
+                Don't have an account? 
+                <a href="register.html">Register here</a>
+            </p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

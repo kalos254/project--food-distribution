@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relief Agency Dashboard - Food Distribution</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">  
+                <i class='bx bx-menu toggle-btn'></i>
+                <i class='bx bxs-hand-up'></i>
+                <h2>Relief Agency</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-tooltip="Dashboard Overview">
+                    <a href="#overview">
+                        <i class='bx bxs-dashboard'></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li data-tooltip="Manage Requests">
+                    <a href="#requests">
+                        <i class='bx bxs-file-plus'></i>
+                        <span>Requests</span>
+                    </a>
+                </li>
+                <li data-tooltip="Manage Inventory">
+                    <a href="#inventory">
+                        <i class='bx bxs-box'></i>
+                        <span>Inventory</span>
+                    </a>
+                </li>
+                <li data-tooltip="Distribution Details">
+                    <a href="#distribution">
+                        <i class='bx bxs-truck'></i>
+                        <span>Distribution</span>
+                    </a>
+                </li>
+                <li data-tooltip="View Reports">
+                    <a href="#reports">
+                        <i class='bx bxs-report'></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li data-tooltip="System Settings">
+                    <a href="#settings">
+                        <i class='bx bxs-cog'></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="logout" data-tooltip="Logout">
+                    <a href="../auth/login.html">
+                        <i class='bx bxs-log-out'></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Relief Agency Dashboard</h1>
+                    <p>Welcome, <span id="agency-name">Agency Name</span></p>
+                </div>
+                <div class="header-right">
+                    <div class="date-filter">
+                        <select id="timeRange">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="newRequest">
+                        <i class="fas fa-plus"></i> New Request
+                    </button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bxs-box'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Inventory</h3>
+                            <p class="stat-value">25,000 kg</p>
+                            <p class="stat-change positive">
+                                <i class='bx bx-up-arrow-alt'></i>15.2%
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bxs-people'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Distributed</h3>
+                            <p class="stat-value">18,500 kg</p>
+                            <p class="stat-change positive">
+                                <i class='bx bx-up-arrow-alt'></i>12.3%
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bxs-time'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending Requests</h3>
+                            <p class="stat-value">12</p>
+                            <p class="stat-change warning">
+                                <i class='bx bx-up-arrow-alt'></i>+5
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bxs-group'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Beneficiaries</h3>
+                            <p class="stat-value">5,280</p>
+                            <p class="stat-change positive">
+                                <i class='bx bx-up-arrow-alt'></i>8.7%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Distribution by Region</h3>
+                        </div>
+                        <canvas id="regionChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Monthly Distribution</h3>
+                        </div>
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="activity-section">
+                    <div class="section-header">
+                        <h3>Recent Activities</h3>
+                        <button class="btn btn-secondary" id="viewAllActivities">View All</button>
+                    </div>
+                    <div class="activity-list">
+                        <!-- Activities will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Requests Section -->
+            <section id="requests" class="dashboard-section hidden">
+                <div class="section-header">
+                    <h2>Food Requests</h2>
+                    <div class="filter-controls">
+                        <select id="requestStatus">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <button class="btn btn-primary" id="createRequest">Create Request</button>
+                    </div>
+                </div>
+                <div class="requests-list">
+                    <!-- Requests will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section id="inventory" class="dashboard-section hidden">
+                <h2>Inventory Management</h2>
+                <div class="inventory-container">
+                    <!-- Inventory content -->
+                </div>
+            </section>
+
+            <!-- Distribution Section -->
+            <section id="distribution" class="dashboard-section hidden">
+                <h2>Distribution Management</h2>
+                <div class="distribution-container">
+                    <!-- Distribution content -->
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="dashboard-section hidden">
+                <h2>Reports</h2>
+                <div class="reports-container">
+                    <!-- Reports content -->
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="dashboard-section hidden">
+                <h2>Settings</h2>
+                <div class="settings-container">
+                    <!-- Settings content -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

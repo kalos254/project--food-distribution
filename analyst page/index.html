@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coverage Analysis - Food Distribution</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class='bx bx-menu toggle-btn'></i>
+                <h2>Analysis page</h2>
+            </div>
+            <ul class="nav-links">
+                <li data-tooltip="Dashboard Overview">
+                    <a href="#overview">
+                        <i class='bx bx-line-chart'></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li data-tooltip="View Coverage Map">
+                    <a href="#coverage">
+                        <i class='bx bx-map-pin'></i>
+                        <span>Coverage Map</span>
+                    </a>
+                </li>
+                <li data-tooltip="Distribution Details">
+                    <a href="#distribution">
+                        <i class='bx bx-package'></i>
+                        <span>Distribution</span>
+                    </a>
+                </li>
+                <li data-tooltip="View Reports">
+                    <a href="#reports">
+                        <i class='bx bx-file'></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li data-tooltip="Back to Home">
+                    <a href="../index.html">
+                        <i class='bx bx-home'></i>
+                        <span>Back to Home</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Coverage Analysis</h1>
+                    <p>Comprehensive Distribution Analytics</p>
+                </div>
+                <div class="header-right">
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <select id="productFilter">
+                                <option value="">All Products</option>
+                                <option value="maize">Maize</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="rice">Rice</option>
+                                <option value="beans">Beans</option>
+                                <option value="sorghum">Sorghum</option>
+                                <option value="millet">Millet</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <select id="timeRange">
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="dashboard-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-package'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Distribution</h3>
+                            <p class="stat-value">125,000 kg</p>
+                            <p class="stat-change positive">+15% from last month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-group'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Beneficiaries Reached</h3>
+                            <p class="stat-value">45,000</p>
+                            <p class="stat-change positive">+8% from last month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-map'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Coverage Area</h3>
+                            <p class="stat-value">28 Counties</p>
+                            <p class="stat-change">+2 new counties</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class='bx bx-car'></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Active Distributions</h3>
+                            <p class="stat-value">12</p>
+                            <p class="stat-change neutral">No change</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Distribution by Region</h3>
+                        <canvas id="regionChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Monthly Distribution Trend</h3>
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coverage Map Section -->
+            <section id="coverage" class="dashboard-section">
+                <div id="coverage" class="map-container">
+                    <!-- Map will be initialized here -->
+                </div>
+                <div class="map-legend">
+                    <h3>Distribution Intensity</h3>
+                    <div class="legend-scale">
+                        <div class="legend-item">
+                            <span class="color" style="background: #7fdbda"></span>
+                            <span class="label">Low</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color" style="background: #2ecc71"></span>
+                            <span class="label">Medium</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color" style="background: #27ae60"></span>
+                            <span class="label">High</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color" style="background: #1a6d41"></span>
+                            <span class="label">Very High</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Distribution Section -->
+            <section id="distribution" class="dashboard-section hidden">
+                <div class="distribution-grid">
+                    <div class="distribution-list">
+                        <h3>Active Distributions</h3>
+                        <div class="distribution-items">
+                            <!-- Distribution items will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="distribution-stats">
+                        <h3>Distribution Statistics</h3>
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="dashboard-section hidden">
+                <div class="reports-grid">
+                    <div class="report-filters">
+                        <h3>Generate Report</h3>
+                        <div class="filter-form">
+                            <div class="form-group">
+                                <label>Report Type</label>
+                                <select id="reportType">
+                                    <option value="distribution">Distribution Report</option>
+                                    <option value="coverage">Coverage Report</option>
+                                    <option value="impact">Impact Report</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Time Period</label>
+                                <select id="reportPeriod">
+                                    <option value="week">Last Week</option>
+                                    <option value="month">Last Month</option>
+                                    <option value="quarter">Last Quarter</option>
+                                    <option value="year">Last Year</option>
+                                </select>
+                            </div>
+                            <button class="btn-primary">Generate Report</button>
+                        </div>
+                    </div>
+                    <div class="recent-reports">
+                        <h3>Recent Reports</h3>
+                        <div class="report-list">
+                            <!-- Recent reports will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Prediction Support Module -->
+            <div class="prediction-module">
+                <div class="prediction-header">
+                    <h3><i class='bx bx-line-chart'></i> Trend Analysis & Predictions</h3>
+                    <button id="togglePrediction" class="toggle-btn">
+                        <i class='bx bx-chevron-up'></i>
+                    </button>
+                </div>
+                <div class="prediction-content">
+                    <div class="prediction-controls">
+                        <select id="predictionMetric">
+                            <option value="distribution">Distribution Volume</option>
+                            <option value="beneficiaries">Beneficiaries</option>
+                            <option value="coverage">Coverage Area</option>
+                        </select>
+                        <select id="predictionPeriod">
+                            <option value="1">Next Month</option>
+                            <option value="3">Next 3 Months</option>
+                            <option value="6">Next 6 Months</option>
+                        </select>
+                        <button id="generatePrediction" class="btn-primary">
+                            <i class='bx bx-analyse'></i> Generate Prediction
+                        </button>
+                    </div>
+                    <div class="prediction-chart">
+                        <canvas id="predictionChart"></canvas>
+                    </div>
+                    <div class="prediction-insights">
+                        <h4>Key Insights</h4>
+                        <ul id="predictionInsights">
+                            <!-- Insights will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
+    <script>
+        function loadMapDependencies() {
+            // Load Leaflet CSS
+            const leafletCSS = document.createElement('link');
+            leafletCSS.rel = 'stylesheet';
+            leafletCSS.href = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
+            document.head.appendChild(leafletCSS);
+
+            // Load Leaflet JS
+            const leafletJS = document.createElement('script');
+            leafletJS.src = 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js';
+            document.head.appendChild(leafletJS);
+
+            // Load Heat plugin after Leaflet
+            leafletJS.onload = function() {
+                const heatJS = document.createElement('script');
+                heatJS.src = 'https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js';
+                document.head.appendChild(heatJS);
+
+                // Initialize map after dependencies are loaded
+                heatJS.onload = initializeMap;
+            };
+        }
+
+        // Load map dependencies when needed
+        document.addEventListener('DOMContentLoaded', loadMapDependencies);
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

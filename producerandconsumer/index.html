@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producer/Consumer Dashboard</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class='bx bx-menu toggle-btn'></i>
+                <h2>Dashboard</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-tooltip="View Marketplace">
+                    <a href="#marketplace">
+                        <i class='bx bx-store'></i>
+                        <span>Marketplace</span>
+                    </a>
+                </li>
+                <li data-tooltip="Manage Inventory">
+                    <a href="#inventory">
+                        <i class='bx bx-box'></i>
+                        <span>Inventory</span>
+                    </a>
+                </li>
+                <li data-tooltip="View Orders">
+                    <a href="#orders">
+                        <i class='bx bx-cart'></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li data-tooltip="View Analytics">
+                    <a href="#analytics">
+                        <i class='bx bx-bar-chart-alt-2'></i>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li data-tooltip="Manage Settings">
+                    <a href="#settings">
+                        <i class='bx bx-cog'></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-scroll">
+                <!-- Marketplace Section -->
+                <section id="marketplace" class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class='bx bx-store'></i> Marketplace</h2>
+                        <div class="header-actions">
+                            <div class="search-bar">
+                                <input type="text" placeholder="Search products...">
+                                <button class="btn-icon"><i class='bx bx-search'></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-controls">
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <select id="categoryFilter">
+                                    <option value="">All Categories</option>
+                                    <option value="grains">Grains</option>
+                                    <option value="vegetables">Vegetables</option>
+                                    <option value="fruits">Fruits</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="locationFilter">
+                                    <option value="">All Locations</option>
+                                    <option value="nairobi">Nairobi</option>
+                                    <option value="mombasa">Mombasa</option>
+                                    <option value="kisumu">Kisumu</option>
+                                    <option value="eldoret">Eldoret</option>    
+                                    <option value="nakuru">Nakuru</option>
+                                    <option value="meru">Meru</option>      
+                                    <option value="nyeri">Nyeri</option>
+                                    <option value="kisii">Kisii</option>
+                                    <option value="thika">Thika</option>
+                                    <option value="machakos">Machakos</option>  
+                                    <option value="kitui">Kitui</option>
+                                    <option value="garissa">Garissa</option>
+                                    <option value="wajir">Wajir</option>
+                                    <option value="mandera">Mandera</option>
+                                    
+                                  
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <select id="priceFilter">
+                                    <option value="">Price Range</option>
+                                    <option value="0-1000">0 - 1,000 KES</option>
+                                    <option value="1001-5000">1,001 - 5,000 KES</option>
+                                    <option value="5001+">5,001+ KES</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="productGrid" class="product-grid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </section>
+
+                <!-- Inventory Section -->
+                <section id="inventory" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2><i class='bx bx-box'></i> Inventory</h2>
+                        <button class="btn btn-primary" onclick="document.getElementById('addProductModal').style.display='flex'">
+                            <i class='bx bx-plus'></i> Add Product
+                        </button>
+                    </div>
+                    <div class="inventory-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Inventory items will be dynamically loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2><i class='bx bx-cart'></i> Orders</h2>
+                    </div>
+                    <div class="orders-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Buyer</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#001</td>
+                                    <td>Premium Maize</td>
+                                    <td>500 kg</td>
+                                    <td>KES 225,000</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2025-03-17</td>
+                                    <td>Nairobi Relief Agency</td>
+                                    <td>
+                                        <button class="btn-icon" data-tooltip="View"><i class='bx bx-show'></i></button>
+                                        <button class="btn-icon" data-tooltip="Process"><i class='bx bx-check'></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#002</td>
+                                    <td>Wheat Grade A</td>
+                                    <td>300 kg</td>
+                                    <td>KES 156,000</td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td>2025-03-15</td>
+                                    <td>Mombasa Food Bank</td>
+                                    <td>
+                                        <button class="btn-icon" data-tooltip="View"><i class='bx bx-show'></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2><i class='bx bx-bar-chart'></i> Analytics</h2>
+                    </div>
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Sales Overview</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Product Performance</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="productChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Regional Distribution</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="regionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2><i class='bx bx-cog'></i> Settings</h2>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-card">
+                            <h3>Profile Settings</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Business Name</label>
+                                    <input type="text" value="Kenya Grain Producers">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Email</label>
+                                    <input type="email" value="contact@kenyagrains.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="+254 700 123456">
+                                </div>
+                                <div class="form-group">
+                                    <label>Region</label>
+                                    <input type="text" value="Nairobi">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+                        <div class="settings-card">
+                            <h3>Notification Preferences</h3>
+                            <div class="settings-options">
+                                <div class="setting-option">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>Email Notifications</span>
+                                </div>
+                                <div class="setting-option">
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>SMS Notifications</span>
+                                </div>
+                                <div class="setting-option">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span>WhatsApp Notifications</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Product</h2>
+                <button class="close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm" name="addProductForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" name="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price (KES)</label>
+                            <input type="number" id="price" name="price" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" name="quantity" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="unit">Unit</label>
+                            <select id="unit" name="unit" required>
+                                <option value="kg">Kilograms (kg)</option>
+                                <option value="tons">Tons</option>
+                                <option value="bags">Bags</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quality">Quality</label>
+                            <select id="quality" name="quality" required>
+                                <option value="excellent">Excellent</option>
+                                <option value="very-good">Very Good</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Product Image</label>
+                        <input type="file" id="productImage" name="productImage" accept="image/*">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+    </div>
+
+    <!-- Add Contact Form Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Seller</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm" onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label for="contactMessage">Your Message</label>
+                        <textarea id="contactMessage" required placeholder="Write your message here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Your Email</label>
+                        <input type="email" id="contactEmail" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Your Phone (optional)</label>
+                        <input type="tel" id="contactPhone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
